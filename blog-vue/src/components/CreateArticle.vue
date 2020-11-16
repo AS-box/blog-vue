@@ -6,7 +6,7 @@
       <h2>タグ</h2>
       <input type="text" name="createArticle-tag" v-model="tag">
       <h2>キービジュアル</h2>
-      <upload-image></upload-image>
+      <upload-image @upload-image='getImageFile'></upload-image>
       <h2>本文</h2>
       <textarea v-model="text"></textarea>
     </form>
@@ -29,6 +29,8 @@ export default {
       text:''
     }
   },
-  props:{}
+  props:{},
+  methods:{
+  }
 }
 </script>
