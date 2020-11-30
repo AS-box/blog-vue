@@ -1,0 +1,23 @@
+<template>
+  <div id="coiceImages">
+    <button type="button">写真を選択</button>
+    <ul>
+      <li v-for="image in imagesList" :key="image"><a href=""><img :src="image" alt="">{{ image }}</a></li>
+    </ul>
+  </div>
+</template>
+<script>
+export default {
+  name:'ChoiceImages',
+  data(){
+    return {
+      imagesList:[]
+    }
+  },
+  methods:{
+  },
+  beforeCreate(){
+    this.imagesList = this.$store.state.images
+  }
+}
+</script>
