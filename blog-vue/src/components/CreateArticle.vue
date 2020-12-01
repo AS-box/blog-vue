@@ -31,6 +31,9 @@ export default {
   },
   props:{},
   methods:{
+  },
+  beforeCreate(){
+    this.$store.commit('initState')
   }
 }
 </script>

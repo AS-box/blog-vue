@@ -2,6 +2,7 @@
   <div class="upload-image">
     <input type="file" @change="setData" accept="image/*">
     <img :src="url" alt="">
+    <button @click='upload'>アップロード</button>
   </div>
 </template>
 <script>
@@ -16,14 +17,13 @@ export default {
   methods:{
     setData(e){
       this.title = e.target.files[0].name 
-      this.changeBase64(e.target.files[0])
+      this.imageURL(e.target.files[0])
     },
-    changeBase64(fileObject){
+    imageURL(fileObject){
       // ローカルにある画像ファイルのURLを取得する
       const fileReader = new FileReader();
       fileReader.onload = (e) => {
         this.url = e.target.result;
-        this.upload()
       }
       fileReader.readAsDataURL(fileObject);
     },

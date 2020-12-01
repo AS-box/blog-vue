@@ -26,13 +26,13 @@ export default {
     CreateArticle
   },
   methods:{
-    getImages(){
-      this.$store.dispatch('getImages')
-    }
+    // getImages(){
+    //   this.$store.dispatch('getImages')
+    // }
   },
-  created(){
-    this.getImages()
-  }
+  // created(){
+  //   this.getImages()
+  // }
 }
 </script>
 

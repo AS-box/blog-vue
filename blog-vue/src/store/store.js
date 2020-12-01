@@ -14,22 +14,18 @@ const store = new Vuex.Store({
 
   // },
   mutations: {
-    setStateImages(data) {
-      this.state.images.push(data)
+    setStateImage(state,file) {
+      state.images.push(file)
+    },
+    initState() {
+      this.state.images = []
+      this.state.loading = false
     }
   },
   actions: {
-    getImages() {
-    },
-    postImages({ commit, state }, {title,url}) {
-      let that = this
-      console.log(commit, state,title,url)
-      let promise = new Promise((resolve,reject) => {
-        this.state.images.push({title:title,url:url})
-        resolve('ポスト完了')
-        reject('ポストできない')
-      })
-      promise.then(that.getImages)
+    postImages(s, file) {
+      this.commit('setStateImage', file)
+      window.localStorage.setItem('images',JSON.stringify(this.state.images))
      }
   }
 })
