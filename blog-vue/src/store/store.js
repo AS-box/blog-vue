@@ -5,7 +5,6 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state:{
-    loading: false,
     images:[]
   },
   
@@ -14,19 +13,25 @@ const store = new Vuex.Store({
 
   // },
   mutations: {
-    setStateImage(state,file) {
-      state.images.push(file)
+    setImages() {
+      this.state.images = JSON.parse(window.localStorage.images)
     },
-    initState() {
-      this.state.images = []
-      this.state.loading = false
+    addImages(s, file) {
+      console.log(file)
+      this.state.images.push(file)
+      console.log(this.state.images)
     }
   },
   actions: {
-    postImages(s, file) {
-      this.commit('setStateImage', file)
-      window.localStorage.setItem('images',JSON.stringify(this.state.images))
-     }
+    postImages(state, file) {
+      state.commit('addImages',file)
+      window.localStorage.setItem('images', JSON.stringify(this.state.images))
+      state.commit('setImages')
+    },
+    getImages() {
+      return this.state.images
+    }
+     
   }
 })
 export default store;

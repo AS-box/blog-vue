@@ -1,9 +1,9 @@
 <template>
   <div id="coiceImages">
     <button type="button" @click="openList">写真を選択</button>
-    <!-- <ul>
+    <ul>
       <li v-for="image in imagesList" :key="image"><a href=""><img :src="image" alt="">{{ image }}</a></li>
-    </ul> -->
+    </ul>
   </div>
 </template>
 <script>
@@ -16,8 +16,8 @@ export default {
   },
   methods:{
     openList(){
-      this.imagesList = this.$store.state.images
       console.log(this)
+      this.imagesList = this.$store.state.images
     }
   }
 }

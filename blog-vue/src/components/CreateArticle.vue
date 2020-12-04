@@ -25,15 +25,12 @@ export default {
     return{
       title:'',
       tag:[],
-      mv:'',
+      mvId:'',
       text:''
     }
   },
   props:{},
   methods:{
-  },
-  beforeCreate(){
-    this.$store.commit('initState')
   }
 }
 </script>
