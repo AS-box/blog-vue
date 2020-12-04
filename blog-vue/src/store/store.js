@@ -29,6 +29,7 @@ const store = new Vuex.Store({
       state.commit('setImages')
     },
     getImages() {
+      this.commit('setImages')
       return this.state.images
     }
      

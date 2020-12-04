@@ -6,7 +6,7 @@
     <input type="text" name="createArticle-tag" v-model="tag">
     <h2>キービジュアル</h2>
     <upload-image></upload-image>
-    <choice-images></choice-images>
+    <choice-images @choice-mv="setMv" name="choice-mv"></choice-images>
     <h2>本文</h2>
     <textarea v-model="text"></textarea>
   </div>
@@ -31,6 +31,12 @@ export default {
   },
   props:{},
   methods:{
+    setMv(mv){
+      this.mvId = mv
+    }
+  },
+  beforeCreate(){
+    this.$store.dispatch('getImages')
   }
 }
 </script>
