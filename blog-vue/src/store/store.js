@@ -1,11 +1,13 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+// import axios from 'axios'
 
 Vue.use(Vuex)
-
 const store = new Vuex.Store({
   state:{
-    images:[]
+    images: [],
+    url: './js/data/',
+    articles:[]
   },
   
   // getters:{},
@@ -14,7 +16,9 @@ const store = new Vuex.Store({
   // },
   mutations: {
     setImages() {
-      this.state.images = JSON.parse(window.localStorage.images)
+      fetch('http://localhost:3000/images')
+      .then( res => res.json() )
+      .then( res => this.state.images = res )
     },
     addImages(s, file) {
       console.log(file)
@@ -30,7 +34,6 @@ const store = new Vuex.Store({
     },
     getImages() {
       this.commit('setImages')
-      return this.state.images
     }
      
   }

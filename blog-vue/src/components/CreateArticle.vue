@@ -6,33 +6,43 @@
     <input type="text" name="createArticle-tag" v-model="tag">
     <h2>キービジュアル</h2>
     <upload-image></upload-image>
-    <choice-images @choice-mv="setMv" name="choice-mv"></choice-images>
+    <choose-images @kv="setkv" category="kv" :id="kvId"></choose-images>
     <h2>本文</h2>
     <textarea v-model="text"></textarea>
+    <button @click="postArticle">投稿する</button>
   </div>
 </template>
 <script>
 import UploadImage from './UploadImage'
-import ChoiceImages from './ChoiceImages'
+import ChooseImages from './ChooseImages'
+import marked from 'marked'
 
 export default {
   name:'CreateArticle',
   components:{
     UploadImage,
-    ChoiceImages
+    ChooseImages
   },
   data(){
     return{
       title:'',
       tag:[],
-      mvId:'',
+      kvId:'',
       text:''
     }
   },
-  props:{},
   methods:{
-    setMv(mv){
-      this.mvId = mv
+    setkv(kvid){
+      this.kvId = kvid
+    },
+    setTag(){
+      this.tag = this.tag.split(/[,、]/)
+    },
+    postArticle(){
+      this.setTag()
+    },
+    markUp(){
+      this.text = marked(this.text)
     }
   },
   beforeCreate(){
