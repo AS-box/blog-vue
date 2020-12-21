@@ -1,6 +1,6 @@
 <template>
   <div class="upload-image">
-    <input type="file" @change="setData" accept="image/*">
+    <input type="file" @change="setName" accept="image/*">
     <img src="@/assets/image/Preloader_1.gif" alt="" v-if="load">
     <button @click="upload">アップロード</button>
   </div>
@@ -10,17 +10,13 @@ export default {
   name:'postImage',
   data(){
     return{
-      id:'',
-      url:'',
-      date:'',
+      name:'',
       load:false
     }
   },
   methods:{
-    setData(e){
-      this.date = this.getDate()
-      this.id = ("0000000" + Math.floor(Math.random() * 10000000)).slice(-7)
-      this.changeBase64(e.target.files[0])
+    setName(e){
+      this.name = e.target.files[0].name
     },
     getDate(){
       const date = new Date
@@ -32,21 +28,13 @@ export default {
       const sec = date.getSeconds()
       return year+'/'+month+'/'+day+'/'+hour+':'+min+':'+sec
     },
-    changeBase64(fileObject){
-      // ローカルにある画像ファイルのURLを取得する
-      const fileReader = new FileReader();
-      fileReader.onload = (e) => {
-        this.url = e.target.result;
-      }
-      fileReader.readAsDataURL(fileObject);
-    },
     upload(){
       return new Promise((resolve)=>{
         this.load = true
         this.$store.dispatch('postImages',{
-          id:this.$data.id,
-          url:this.$data.url,
-          date:this.$data.date
+          id:("0000000" + Math.floor(Math.random() * 10000000)).slice(-7),
+          date:this.getDate(),
+          name:this.$data.name
         })
         resolve()
       }).then(() =>{

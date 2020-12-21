@@ -18,18 +18,30 @@ const store = new Vuex.Store({
     setImages() {
       fetch('http://localhost:3000/images')
       .then( res => res.json() )
-      .then( res => this.state.images = res )
+        .then(res => this.state.images = res)
+
     },
     addImages(s, file) {
-      console.log(file)
       this.state.images.push(file)
-      console.log(this.state.images)
     }
   },
   actions: {
     postImages(state, file) {
       state.commit('addImages',file)
-      window.localStorage.setItem('images', JSON.stringify(this.state.images))
+      fetch('http://localhost:3000/images', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(file)
+      })
+        .then(res => res.json())
+        .then(data => {
+        console.log('success:',data)
+        }).
+        catch(err => {
+          console.log('error:',err)
+        })
       state.commit('setImages')
     },
     getImages() {
