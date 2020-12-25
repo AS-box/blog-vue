@@ -1,7 +1,7 @@
 <template>
-  <div id="chooseImages">
+  <div id="chooseImage">
     <button type="button" @click="openList">写真を選択</button>
-    <div class="chooseImages_list" v-if="isOpenList" v-on:click.prevent="closeList"> 
+    <div class="chooseImage_list" v-if="isOpenList" v-on:click.prevent="closeList"> 
       <ul>
         <li v-for="image in imagesList" :key="image.id"><a href=""  v-on:click.prevent="choose(image.id);showThumb(image.id)" ><img :src="getImgeUrl(image.name)" alt=""></a></li>
       </ul>
@@ -11,7 +11,7 @@
 </template>
 <script>
 export default {
-  name:'ChooseImages',
+  name:'chooseImage',
   props:{
     'category':String,
     'id':String
@@ -55,7 +55,7 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-.chooseImages_list{
+.chooseImage_list{
   top: 0;
   width: 100%;
   height: 100%;

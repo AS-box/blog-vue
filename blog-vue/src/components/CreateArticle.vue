@@ -6,7 +6,7 @@
     <input type="text" name="createArticle-tag" v-model="tag">
     <h2>キービジュアル</h2>
     <upload-image></upload-image>
-    <choose-images @kv="setkv" category="kv" :id="kvId"></choose-images>
+    <choose-image @kv="setkv" category="kv" :id="kvId"></choose-image>
     <h2>本文</h2>
     <textarea v-model="text"></textarea>
     <button @click="postArticle">投稿する</button>
@@ -14,14 +14,14 @@
 </template>
 <script>
 import UploadImage from './UploadImage'
-import ChooseImages from './ChooseImages'
+import ChooseImage from './ChooseImage'
 import marked from 'marked'
 
 export default {
   name:'CreateArticle',
   components:{
     UploadImage,
-    ChooseImages
+    ChooseImage
   },
   data(){
     return{
