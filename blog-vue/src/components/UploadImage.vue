@@ -29,17 +29,21 @@ export default {
       return year+'/'+month+'/'+day+'/'+hour+':'+min+':'+sec
     },
     upload(){
-      return new Promise((resolve)=>{
-        this.load = true
-        this.$store.dispatch('postImages',{
-          id:("0000000" + Math.floor(Math.random() * 10000000)).slice(-7),
-          date:this.getDate(),
-          name:this.$data.name
+      if(this.name !== ''){
+        return new Promise((resolve)=>{
+          this.load = true
+          this.$store.dispatch('postImages',{
+            id:("0000000" + Math.floor(Math.random() * 10000000)).slice(-7),
+            date:this.getDate(),
+            name:this.$data.name
+          })
+          resolve()
+        }).then(() =>{
+          this.load = false
         })
-        resolve()
-      }).then(() =>{
-        this.load = false
-      })
+      }else{
+        alert('アップロードするファイルを選択してください')
+      }
     }
   }
 }
