@@ -18,13 +18,6 @@
 <script>
 export default {
   name:'confirm',
-  data(){
-    return{
-      article:{},
-      tags:[]
-    }
-
-  },
   created(){
     this.setData()
   },

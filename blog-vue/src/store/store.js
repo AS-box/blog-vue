@@ -7,7 +7,8 @@ const store = new Vuex.Store({
   state:{
     images: [],
     url: './js/data/',
-    articles:[]
+    articles: [],
+    imageUrl:'../assets/image/'
   },
   
   // getters:{},
