@@ -23,6 +23,9 @@ const store = new Vuex.Store({
     },
     addImages(s, file) {
       this.state.images.push(file)
+    },
+    addArticle(s, article) {
+      this.state.articles.push(article)
     }
   },
   actions: {
@@ -46,6 +49,24 @@ const store = new Vuex.Store({
     },
     getImages() {
       this.commit('setImages')
+    },
+    postAtricle(state, article) {
+      this.state.commit('addArticle', article)
+      fetch('http://localhost:3000/articles', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body:JSON.stringify(article)
+      })
+      .then(res => res.json())
+      .then(data => {
+      console.log('success:',data)
+      }).
+      catch(err => {
+        console.log('error:',err)
+      })
+
     }
      
   }

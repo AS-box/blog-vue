@@ -42,8 +42,8 @@
   </div>
 </template>
 <script>
-import UploadImage from './components/UploadImage'
-import ChooseImage from './components/ChooseImage'
+import UploadImage from '../components/UploadImage'
+import ChooseImage from '../components/ChooseImage'
 import marked from 'marked'
 
 export default {
@@ -60,13 +60,6 @@ export default {
       kvId:'',
       text:'',
       convHtml:''
-    }
-  },
-  created(){
-    const localstrage = localStorage.getItem('article')
-    console.log(this.$data)
-    if(localStorage){
-      this.$data.keys(value)
     }
   },
   methods:{

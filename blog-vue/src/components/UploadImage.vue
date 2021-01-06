@@ -18,16 +18,6 @@ export default {
     setName(e){
       this.name = e.target.files[0].name
     },
-    getDate(){
-      const date = new Date
-      const year = date.getFullYear()
-      const month = date.getMonth()+1
-      const day = date.getDay()
-      const hour = date.getHours()
-      const min = date.getMinutes()
-      const sec = date.getSeconds()
-      return year+'/'+month+'/'+day+'/'+hour+':'+min+':'+sec
-    },
     upload(){
       if(this.name !== ''){
         return new Promise((resolve)=>{
