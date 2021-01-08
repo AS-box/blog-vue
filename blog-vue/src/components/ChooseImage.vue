@@ -6,7 +6,6 @@
         <li v-for="image in imagesList" :key="image.id"><a href=""  v-on:click.prevent="choose(image.id)" ><img :src="getImgeUrl(image.name)" alt=""></a></li>
       </ul>
     </div>
-    <!-- <img :src="getImgeUrl(choseImage.name)" alt="" v-if="isChoosed && isShowThmb" > -->
   </div>
 </template>
 <script>

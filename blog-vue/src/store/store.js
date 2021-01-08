@@ -8,7 +8,6 @@ const store = new Vuex.Store({
     images: [],
     url: './js/data/',
     articles: [],
-    imageUrl:'../assets/image/'
   },
   
   // getters:{},
@@ -52,7 +51,7 @@ const store = new Vuex.Store({
       this.commit('setImages')
     },
     postAtricle(state, article) {
-      this.state.commit('addArticle', article)
+      state.commit('addArticle', article)
       fetch('http://localhost:3000/articles', {
         method: 'POST',
         headers: {

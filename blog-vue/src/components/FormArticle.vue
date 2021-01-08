@@ -5,6 +5,8 @@
       <h2>キービジュアル</h2>
       <upload-image></upload-image>
       <choose-image @kv="setkv" category="kv" :id="article.kvId"></choose-image>
+      <button @click='deleteKv'>キービジュアルを解除する</button>
+      <img :src="kvImgUrl" alt="">
     </div>
     <div class="create-title">
       <h2>タイトル</h2>
@@ -39,23 +41,22 @@
 
       <textarea v-model="article.text" ref="ta"></textarea>
       <button @click="toConfirm">確認する</button>
-
     </div>
   </div>
   <div id="confirm" v-show="isConfirm">
     <article id="article">
       <h2>confirm</h2>
+      <img :src="kvImgUrl" alt="">
       <h3>{{article.title}}</h3>
       <ul class="article_tag" v-if="article.tag !== ''">
         <li v-for="(tag,key) in arrayTag" :key="key">{{tag}}</li>
       </ul>
-      <div ref="confirm_text" class="confirm-text">
-
-      </div>
+      <div ref="confirm_text" class="confirm-text"></div>
     </article>
     <button @click="toForm">戻る</button>
     <button @click="postArticle">決定</button>
   </div>
+  <img src="@/assets/image/Preloader_1.gif" alt="" v-if="load">
 </div>
 </template>
 <script>
@@ -78,22 +79,35 @@ export default {
         kvId:'',
         text:'',
       },
-      isConfirm:false
+      isConfirm:false,
+      kvImgUrl:'',
+      load:false
     }
   },
   computed:{
     arrayTag(){
       return this.article.tag.split(',')
-    },
+    }
   },
   methods:{
     setTitle(){
-      if(this.title === ''){
-        this.title = '無題'
+      if(this.article.title === ''){
+        this.article.title = '無題'
       }
+    },
+    showThumb(){
+      console.log(this)
+      const imagesList = this.$store.state.images
+      const image = imagesList.find((image) => image.id === this.kvId)
+      this.kvImgUrl  = this.getImgeUrl(image.name)
     },
     setkv(kvid){
       this.kvId = kvid
+      this.showThumb()
+    },
+    deleteKv(){
+      this.kvId = ''
+      this.kvImgUrl = ''
     },
     selectMark(e){
       const area = this.$refs.ta
@@ -102,7 +116,6 @@ export default {
     selectImage(id){
       const area = this.$refs.ta
       const image = this.$store.state.images.find((image) => image.id === id)
-      console.log(this)
       const mark = "!["+ image.name + "](" + this.getImgeUrl(image.name) + ")"
       this.article.text = area.value.substr(0, area.selectionStart) + mark + area.value.substr(area.selectionStart);
     },
@@ -110,6 +123,8 @@ export default {
       this.$refs.confirm_text.innerHTML = marked(this.article.text)
     },
     toConfirm(){
+      this.article.date = this.getDate()
+      this.setTitle()
       this.showText()
       this.isConfirm = true
     },
@@ -117,7 +132,13 @@ export default {
       this.isConfirm = false
     },
     postArticle(){
-      console.log()
+      return new Promise((resolve)=>{
+        this.load = true
+        this.$store.dispatch('postAtricle',this.article)
+        resolve()
+      }).then(() =>{
+        this.load = false
+      })
     }
     
   },
