@@ -1,5 +1,5 @@
 <template>
-<div id="confirm">
+<div>
   <div id="create" v-show="!isConfirm">
     <div class="create-kv">
       <h2>キービジュアル</h2>
@@ -60,8 +60,8 @@
 </div>
 </template>
 <script>
-import UploadImage from './UploadImage'
-import ChooseImage from './ChooseImage'
+import UploadImage from '../components/UploadImage'
+import ChooseImage from '../components/ChooseImage'
 import marked from 'marked'
 
 export default {
@@ -131,13 +131,17 @@ export default {
     toForm(){
       this.isConfirm = false
     },
+    toComplete(){
+
+    },
     postArticle(){
       return new Promise((resolve)=>{
         this.load = true
-        this.$store.dispatch('postAtricle',this.article)
+        // this.$store.dispatch('postAtricle',this.article)
         resolve()
       }).then(() =>{
         this.load = false
+        this.$router.push({path:'formComplete', name:'FormComplete'})
       })
     }
     

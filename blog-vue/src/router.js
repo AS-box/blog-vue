@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import Edit from './views/Edit.vue'
-import Confirm from './views/Confirm.vue'
+import FormArticle from './views/FormArticle.vue'
+import FormComplete from './views/FormComplete.vue'
 
 Vue.use(Router)
 
@@ -14,13 +14,14 @@ export default new Router({
       component:Home
     },
     {
-      path: '/edit',
-      component: Edit,
+      path: '/formArticle',
+      component: FormArticle,
     },
     {
-      path: '/confirm',
-      name:'confirm',
-      component: Confirm,
+      path: '/formComplete',
+      component: FormComplete,
+      name:'FormComplete',
+      props:true
     },
 
   ]
