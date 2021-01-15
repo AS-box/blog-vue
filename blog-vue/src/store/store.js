@@ -9,17 +9,17 @@ const store = new Vuex.Store({
     url: './js/data/',
     articles: [],
   },
-  
-  // getters:{},
-  // setter: {
-
-  // },
   mutations: {
     setImages() {
       fetch('http://localhost:3000/images')
       .then( res => res.json() )
         .then(res => this.state.images = res)
 
+    },
+    setArticles() {
+      fetch('http://localhost:3000/articles')
+      .then( res => res.json() )
+        .then(res => this.state.articles = res)
     },
     addImages(s, file) {
       this.state.images.push(file)
@@ -67,7 +67,10 @@ const store = new Vuex.Store({
         console.log('error:',err)
       })
 
-    }
+    },
+    getArticles() {
+      this.commit('setArticles')
+    },
      
   }
 })

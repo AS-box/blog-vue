@@ -2,15 +2,22 @@
 <div>
   <div id="create" v-show="!isConfirm">
     <div class="create-kv">
-      <h2>キービジュアル</h2>
+      <h2>画像アップロード</h2>
       <upload-image></upload-image>
+      <h2>キービジュアル</h2>
       <choose-image @kv="setkv" category="kv" :id="article.kvId"></choose-image>
-      <button @click='deleteKv'>キービジュアルを解除する</button>
+      <button @click='deleteKv'>キービジュアルを破棄</button>
       <img :src="kvImgUrl" alt="">
     </div>
     <div class="create-title">
       <h2>タイトル</h2>
       <input type="text" name="create-title" v-model="article.title">
+    </div>
+    <div class="create-category">
+      <h2>カテゴリー</h2>
+      <select name="create-category" v-model="article.category">
+        <option v-for="(category,key) in categoryList" :key="key">{{category}}</option>
+      </select>
     </div>
     <div class="create-tag">
       <h2>タグ</h2>
@@ -38,20 +45,29 @@
       <button value="***" @click="selectMark($event)">水平線</button>
       <button value="[文字](URL)" @click="selectMark($event)">リンク</button>
       <choose-image @image="selectImage" category="image"></choose-image>
-
       <textarea v-model="article.text" ref="ta"></textarea>
-      <button @click="toConfirm">確認する</button>
     </div>
+    <div class="create-pickup">
+      <h2>記事指定</h2>
+      <input type="radio" id="normal" value="normal" v-model="article.special">
+      <label for="normal">指定なし</label>
+      <input type="radio" id="pickup" value="pickup" v-model="article.special">
+      <label for="pickup">ピックアップ記事に指定する</label>
+      <input type="radio" id="popular" value="popular" v-model="article.special">
+      <label for="popular">人気記事に指定する</label>
+    </div>
+    <button @click="toConfirm">確認する</button>
   </div>
   <div id="confirm" v-show="isConfirm">
-    <article id="article">
+    <article id="article" :class="article.special">
       <h2>confirm</h2>
       <img :src="kvImgUrl" alt="">
       <h3>{{article.title}}</h3>
+      <span>{{ article.category }}</span>
+      <div ref="confirm_text" class="confirm-text"></div>
       <ul class="article_tag" v-if="article.tag !== ''">
         <li v-for="(tag,key) in arrayTag" :key="key">{{tag}}</li>
-      </ul>
-      <div ref="confirm_text" class="confirm-text"></div>
+      </ul>   
     </article>
     <button @click="toForm">戻る</button>
     <button @click="postArticle">決定</button>
@@ -65,7 +81,7 @@ import ChooseImage from '../components/ChooseImage'
 import marked from 'marked'
 
 export default {
-  name:'create',
+  name:'Edit',
   components:{
     UploadImage,
     ChooseImage,
@@ -76,12 +92,15 @@ export default {
         title:'',
         date:'',
         tag:'',
+        category:'',
         kvId:'',
         text:'',
+        special:''
       },
       isConfirm:false,
       kvImgUrl:'',
-      load:false
+      load:false,
+      categoryList:['その他','HTML','CSS','javascript','学習','デザイン','イラスト']
     }
   },
   computed:{
@@ -96,7 +115,6 @@ export default {
       }
     },
     showThumb(){
-      console.log(this)
       const imagesList = this.$store.state.images
       const image = imagesList.find((image) => image.id === this.kvId)
       this.kvImgUrl  = this.getImgeUrl(image.name)
@@ -137,7 +155,7 @@ export default {
     postArticle(){
       return new Promise((resolve)=>{
         this.load = true
-        // this.$store.dispatch('postAtricle',this.article)
+        this.$store.dispatch('postAtricle',this.article)
         resolve()
       }).then(() =>{
         this.load = false
