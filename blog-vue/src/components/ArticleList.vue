@@ -1,7 +1,11 @@
 <template>
   <div id="articleList">
+  <img src="@/assets/image/Preloader_1.gif" alt="" v-if="load">
     <ul>
-      <li v-for="(article,key) in articles" :key="key"><img :src="getKvName(article.kvId)" alt="">{{ article.title }}</li>
+      <li v-for="(article,key) in articles" :key="key">
+        {{ article.title }}
+        <img :src="getImgeUrl(article.kvName)" alt="">
+      </li>
     </ul>
   </div>
 </template>
@@ -11,29 +15,22 @@ export default {
   name:'ArticleList',
   data(){
     return{
-      articles:[]
+      articles:this.$store.state.articles,
+      // images:[],
+      load:false
     }
   },
-  beforeCreate(){
+  async mounted(){//もっと良い書き方ありそう
+    this.load = true
+    await this.$store.dispatch('getArticles')
+    await this.$store.dispatch('getImages')
+    this.load = false
   },
-  created(){
-    this.$store.dispatch('getArticles')
-    this.$store.dispatch('getImages')
-    this.articles = this.$store.state.articles
-  },
-  mounted(){
-
-  },
-  beforeUpdate() {
-    this.articles = this.$store.state.articles
-  },
-  methods:{
-    getKvName(kvId){
-      const kv = this.$store.state.images.find((image) => image.id === kvId)
-      return this.getImgeUrl(kv.name)
-    }
+  computed:{
+    // articles(){
+    //   return this.$store.state.articles
+    // }
   }
-  
 }
 </script>
 
