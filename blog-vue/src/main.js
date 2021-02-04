@@ -6,9 +6,9 @@ import router from './router'
 import GlobalValiables from './mixins/globalValiables'
 import axios from 'axios' 
 import VueAxios from 'vue-axios'
+// require('./assets/scss/common.scss')
 const IMG_BASE_URL = '../assets/image/'
 
-Vue.config.productionTip = false
 Vue.mixin(GlobalValiables)
 Vue.use(VueAxios, axios) 
 console.log('lint避け' + marked + IMG_BASE_URL)

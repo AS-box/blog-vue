@@ -3,8 +3,10 @@
   <img src="@/assets/image/Preloader_1.gif" alt="" v-if="load">
     <ul>
       <li v-for="(article,key) in articles" :key="key">
-        {{ article.title }}
+        <a href="" v-on:click.prevent="choose(image.id)">
         <img :src="getImgeUrl(article.kvName)" alt="">
+        {{ article.title }}
+        </a>
       </li>
     </ul>
   </div>
@@ -34,6 +36,27 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+@import "@/assets/scss/common.scss";
+  #articleList{
+    padding: 10px 0;
+    ul{
+      display:flex;
+      li{
+        width:get_size(375px);
+        padding:10px;
+        list-style: none;
+        font-size: get_size(40px);
+        a{
+          width: 100%;
+          height: 100%;
+          display: block;
+          color: $text_color;
+          img{
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
 </style>
