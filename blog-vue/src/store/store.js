@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios'
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex)
 const store = new Vuex.Store({
@@ -16,8 +17,25 @@ const store = new Vuex.Store({
     //     .then(res => this.state.images = res)
 
     // },
-    setArticles(data) {
-      console.log(data)
+    async getArticles() {
+      this.state.articles.splice(0,this.state.articles.length)
+      await axios
+        .get('http://localhost:3000/articles')
+          .then(res => {
+            res.data.forEach(article => {
+              this.state.articles.push(article)
+            });
+          })
+    },
+    async getImages() {
+      this.state.images.splice(0,this.state.images.length)
+      axios
+        .get('http://localhost:3000/images')
+          .then(res => {
+            res.data.forEach(image => {
+              this.state.images.push(image)
+            });
+          })
     },
     // addImages(s, file) {
     //   this.state.images.push(file)
@@ -46,16 +64,7 @@ const store = new Vuex.Store({
     //   state.commit('setImages')
     // },
 
-    async getImages() {
-      this.state.images.splice(0,this.state.images.length)
-      axios
-        .get('http://localhost:3000/images')
-          .then(res => {
-            res.data.forEach(image => {
-              this.state.images.push(image)
-            });
-          })
-    },
+
     // postAtricle(state, article) {
     //   state.commit('addArticle', article)
     //   fetch('http://localhost:3000/articles', {
@@ -74,24 +83,14 @@ const store = new Vuex.Store({
     //   })
 
     // },
-    // async getArticles() {
-    //   const res = await axios.get('http://localhost:3000/articles');
-    //   res.data.forEach(article => {
-    //     this.state.articles.push(article)
-    //   });
-    // }
-    async getArticles() {
-      this.state.articles.splice(0,this.state.articles.length)
-      await axios
-        .get('http://localhost:3000/articles')
-          .then(res => {
-            res.data.forEach(article => {
-              this.state.articles.push(article)
-            });
-          })
 
-    },
      
-  }
+  },
+  plugins: [
+    createPersistedState({
+      key: "azport",
+      storage: window.localStorage,
+    }),
+  ],
 })
 export default store;

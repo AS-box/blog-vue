@@ -2,11 +2,9 @@
   <div id="articleList">
   <img src="@/assets/image/Preloader_1.gif" alt="" v-if="load">
     <ul>
-      <li v-for="(article,key) in articles" :key="key">
-        <a href="" v-on:click.prevent="choose(image.id)">
+      <li v-for="(article,key) in articles" :key="key" @click="toArticle(article)">
         <img :src="getImgeUrl(article.kvName)" alt="">
         {{ article.title }}
-        </a>
       </li>
     </ul>
   </div>
@@ -24,14 +22,19 @@ export default {
   },
   async mounted(){//もっと良い書き方ありそう
     this.load = true
-    await this.$store.dispatch('getArticles')
-    await this.$store.dispatch('getImages')
+    await this.$store.commit('getArticles')
+    await this.$store.commit('getImages')
     this.load = false
   },
   computed:{
     // articles(){
     //   return this.$store.state.articles
     // }
+  },
+  methods:{
+    toArticle(data){
+      this.$router.push({name:'Article',params:{data:data}})
+    }
   }
 }
 </script>
@@ -47,14 +50,15 @@ export default {
         padding:10px;
         list-style: none;
         font-size: get_size(40px);
+        img{
+          width: 100%;
+        }
         a{
           width: 100%;
           height: 100%;
           display: block;
           color: $text_color;
-          img{
-            width: 100%;
-          }
+
         }
       }
     }

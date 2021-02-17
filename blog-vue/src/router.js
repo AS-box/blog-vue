@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Edit from './views/Edit.vue'
 import FormComplete from './views/FormComplete.vue'
+import Article from './views/Article.vue'
 
 Vue.use(Router)
 
@@ -23,6 +24,13 @@ export default new Router({
       name:'FormComplete',
       props:true
     },
+    {
+      path: '/article/',
+      component: Article,
+      name:'Article',
+      props: true
+    }
+
 
   ]
 })
