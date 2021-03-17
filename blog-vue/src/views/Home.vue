@@ -42,10 +42,7 @@ export default {
 html,body{
   height:100%;
 }
-#app{
-  background-color: #F3F1F1;
-  min-height: 812px;
-}
+
 main{
   padding: 0;
   margin: 0;
