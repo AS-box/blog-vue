@@ -43,9 +43,6 @@ export default {
       this.$emit(category,id)
       this.isOpenList = false
     },
-    getImgeUrl(name){
-      return require(`../assets/image/${name}`)
-    },
     showThumb(id,boo){
       this.isChoosed = true
       const image = this.imagesList.find((image) => image.id === id)

@@ -1,5 +1,6 @@
 $base_color:#FEC81A;
 $text_color:#484848;
+$blue:#306AA7;
 @function get_size($s) {
   @return (100vw/750px)*$s
   }

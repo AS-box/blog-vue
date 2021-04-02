@@ -1,29 +1,10 @@
-<template>
-  <header>
-    <div class="menu"><font-awesome-icon icon="hamburger" /></div>
-    <h1><img src="@/assets/image/asport_logo.png" alt=""></h1>
-  </header>
-</template>
-
-<script>
-import 'normalize.css'
-export default {
-  name:'Header',
-  created(){
-  },
-  methods:{
+$base_color:#FEC81A;
+$text_color:#484848;
+$blue:#306AA7;
+@function get_size($s) {
+  @return (100vw/750px)*$s
   }
-  
-}
-</script>
 
-<style lang="scss">
-@import "@/assets/scss/common.scss";
-h1,h2,h3,h4{
-  margin: 0;
-  padding:0;
-}
-header{
   background-color: $base_color;
   height: 60px;
   position: relative;
@@ -61,5 +42,3 @@ header{
     }
   }
 }
-
-</style>

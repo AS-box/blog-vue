@@ -1,12 +1,12 @@
 <template>
   <div id="articleList">
   <img src="@/assets/image/Preloader_1.gif" alt="" v-if="load">
-    <ul>
-      <li v-for="(article,key) in articles" :key="key" @click="toArticle(article)">
+    <div class="list">
+      <div class="item" v-for="(article,key) in articles" :key="key" @click="toArticle(article)">
         <img :src="getImgeUrl(article.kvName)" alt="">
-        {{ article.title }}
-      </li>
-    </ul>
+        <p>{{ article.title }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -42,16 +42,27 @@ export default {
 <style lang="scss">
 @import "@/assets/scss/common.scss";
   #articleList{
-    padding: 10px 0;
-    ul{
+    .list{
       display:flex;
-      li{
-        width:get_size(375px);
-        padding:10px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      .item{
+        flex-basis: 50%;
         list-style: none;
-        font-size: get_size(40px);
+        font-size: get_size(25px);
+        padding: get_size(20px);
+        box-sizing: border-box;
         img{
           width: 100%;
+          height: get_size(230px);
+        }
+        p{
+          padding:10px;
+          margin: 0;
+          margin-top: -2px;
+          background: #fff;
+          min-height: 62px;
+          box-sizing: border-box;
         }
         a{
           width: 100%;

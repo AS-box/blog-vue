@@ -10,7 +10,7 @@ export default {
       const sec = date.getSeconds()
       return year+'/'+month+'/'+day+'/'+hour+':'+min+':'+sec
     },
-    getImgeUrl(name){
+    getImgeUrl(name) {
       return require(`../assets/image/${name}`)
     }
   }

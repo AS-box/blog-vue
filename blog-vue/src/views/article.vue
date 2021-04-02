@@ -4,7 +4,7 @@
       <main>
         <div id="article">
           <img :src="getImgeUrl(data.kvName)" alt="">
-          <span>{{data.date}}</span>
+          <span><font-awesome-icon icon="pen-nib" />{{data.date}}</span>
           <h3>{{data.title}}</h3>
           <p ref="article_text" class="article_text"></p>
         </div>
@@ -54,14 +54,6 @@ export default {
 </script>
 <style lang="scss">
 @import "@/assets/scss/common.scss";
-  #article{
-    width:get_size(696px);
-    background: #ffffff;
-    margin: auto;
-    padding-top: 10px;
-    img{
-      width:100%;
-      height:get_size(376px);
-    }
-  }
+@import "@/assets/scss/article.scss";
+  
 </style>

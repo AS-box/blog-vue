@@ -28,7 +28,7 @@ const store = new Vuex.Store({
     },
     async getImages() {
       this.state.images.splice(0,this.state.images.length)
-      axios
+      await axios
         .get('http://localhost:3000/images')
           .then(res => {
             res.data.forEach(image => {
@@ -44,25 +44,32 @@ const store = new Vuex.Store({
     // }
   },
   actions: {
-    // postImages(state, file) {
-    //   state.commit('addImages',file)
-    //   fetch('http://localhost:3000/images', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(file)
-    //   })
-    //     .then(res => res.json())
-    //     .then(data => {
-    //     console.log('success:',data)
-    //     }).
-    //     catch(err => {
-    //       console.log('error:',err)
-    //     })
-    //   state.commit('setImages')
-    // },
-
+    async postImages(state, file) {
+      await axios
+        .post('http://localhost:3000/images', {
+          "name": file.name,
+          "date": file.date,
+          "id": file.id
+        })
+        .then(res => {
+        console.log(file,res)
+      })
+    },
+    async postAtricle(state, article) {
+      await axios
+        .post('http://localhost:3000/articles', {
+          "title":article.title,
+          "date":article.date,
+          "tag":article.tag,
+          "category":article.category,
+          "kvName":article.kvName,
+          "text":article.text,
+          "special":article.special
+        })
+        .then(res => {
+        console.log(article,res)
+      })
+    }
 
     // postAtricle(state, article) {
     //   state.commit('addArticle', article)

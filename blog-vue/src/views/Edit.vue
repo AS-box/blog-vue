@@ -1,5 +1,6 @@
 <template>
-<div>
+<div id="app">
+  <Header></Header>
   <div id="create" v-show="!isConfirm">
     <div class="create-kv">
       <h2>画像アップロード</h2>
@@ -27,9 +28,9 @@
       <h2>本文</h2>
       <select name="" id="" @change="selectMark($event)" >
         <option disabled value="" selected>見出しを選ぶ</option>
-        <option value="### ">見出し1</option>
-        <option value="#### ">見出し2</option>
-        <option value="##### ">見出し3</option>
+        <option value="#### ">見出し1</option>
+        <option value="##### ">見出し2</option>
+        <option value="###### ">見出し3</option>
       </select>
       <select name="" id="" @change="selectMark($event)">
         <option disabled value="" selected>引用の形を選ぶ</option>
@@ -49,12 +50,20 @@
     </div>
     <div class="create-pickup">
       <h2>記事指定</h2>
-      <input type="radio" id="normal" value="normal" v-model="article.special">
-      <label for="normal">指定なし</label>
-      <input type="radio" id="pickup" value="pickup" v-model="article.special">
-      <label for="pickup">ピックアップ記事に指定する</label>
-      <input type="radio" id="popular" value="popular" v-model="article.special">
-      <label for="popular">人気記事に指定する</label>
+      <ul>
+        <li>
+          <input type="radio" id="normal" value="normal" v-model="article.special">
+          <label for="normal">指定なし</label>
+        </li>
+        <li>
+          <input type="radio" id="pickup" value="pickup" v-model="article.special">
+          <label for="pickup">ピックアップ記事に指定する</label>
+        </li>
+        <li>
+          <input type="radio" id="popular" value="popular" v-model="article.special">
+          <label for="popular">人気記事に指定する</label>
+        </li>
+      </ul>
     </div>
     <button @click="toConfirm">確認する</button>
   </div>
@@ -78,6 +87,7 @@
 <script>
 import UploadImage from '../components/UploadImage'
 import ChooseImage from '../components/ChooseImage'
+import Header from '../components/Header'
 import marked from 'marked'
 
 export default {
@@ -85,6 +95,7 @@ export default {
   components:{
     UploadImage,
     ChooseImage,
+    Header
   },
   data(){
     return{
@@ -93,7 +104,7 @@ export default {
         date:'',
         tag:'',
         category:'',
-        kvId:'',
+        kvNme:'',
         text:'',
         special:''
       },
@@ -102,6 +113,9 @@ export default {
       load:false,
       categoryList:['その他','HTML','CSS','javascript','学習','デザイン','イラスト']
     }
+  },
+  beforeCreate(){
+    this.$store.commit('getImages')
   },
   computed:{
     arrayTag(){
@@ -163,9 +177,40 @@ export default {
       })
     }
     
-  },
-  beforeCreate(){
-    this.$store.dispatch('getImages')
   }
 }
 </script>
+<style lang="scss">
+@import "@/assets/scss/common.scss";
+#create{
+  padding:get_size(40px);
+  h2{
+    color: $blue;
+    margin-top: get_size(40px);
+  }
+  .create-title{
+    input{
+      width:100%;
+    }
+  }
+  .create-tag{
+    input{
+      width:100%;
+    }
+  }
+  .create-text{
+    textarea{
+      width: 100%;
+      height: get_size(1000px);
+    }
+  }
+  .create-pickup{
+    ul{
+      padding-left: 0;
+      li{
+        list-style-type:none;
+      }
+    }
+  }
+}
+</style>
