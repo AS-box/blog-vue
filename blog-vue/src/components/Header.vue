@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="menu"><font-awesome-icon icon="hamburger" /></div>
-    <h1><img src="@/assets/image/asport_logo.png" alt=""></h1>
+    <div class="logo"><img src="@/assets/image/asport_logo.png" alt=""></div>
   </header>
 </template>
 
@@ -47,7 +47,7 @@ header{
       -webkit-transform: translateY(-50%) translateX(-50%);
     }
   }
-  h1{
+  img{
     position: absolute;
     width: get_size(354px);
     font-size: 0;
@@ -56,9 +56,6 @@ header{
     left: 50%;
     transform: translateY(-50%) translateX(-50%);
     -webkit-transform: translateY(-50%) translateX(-50%);
-    img{
-      width: 100%;
-    }
   }
 }
 

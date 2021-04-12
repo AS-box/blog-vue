@@ -5,7 +5,7 @@
         <div id="article">
           <img :src="getImgeUrl(data.kvName)" alt="">
           <span><font-awesome-icon icon="pen-nib" />{{data.date}}</span>
-          <h3>{{data.title}}</h3>
+          <h1>{{data.title}}</h1>
           <p ref="article_text" class="article_text"></p>
         </div>
       </main>
