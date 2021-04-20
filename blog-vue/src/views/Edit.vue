@@ -198,6 +198,11 @@ export default {
       width:100%;
     }
   }
+  .create-kv{
+    img{
+    width: 100%;
+    }
+  }
   .create-text{
     textarea{
       width: 100%;

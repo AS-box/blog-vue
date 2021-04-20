@@ -5,8 +5,13 @@
         <div id="article">
           <img :src="getImgeUrl(data.kvName)" alt="">
           <span><font-awesome-icon icon="pen-nib" />{{data.date}}</span>
-          <h1>{{data.title}}</h1>
+          <h2>{{data.title}}</h2>
           <p ref="article_text" class="article_text"></p>
+          <div class="article_tagList">
+            <ul>
+              <li v-for="(tag,key) in data.tag" :key="key"><span><font-awesome-icon icon="hashtag" /></span>{{tag}}</li>
+            </ul>
+          </div>
         </div>
       </main>
       <Footer></Footer>
@@ -43,17 +48,23 @@ export default {
     }
     
     this.getText()
+    this.getTags()
   },
   methods:{
     getText(){
       this.$nextTick(() => this.$refs.article_text.innerHTML = marked(this.data.text))
+    },
+    getTags(){
+      this.data.tag = this.data.tag.split(',');
     }
-
   }
 }
 </script>
 <style lang="scss">
 @import "@/assets/scss/common.scss";
 @import "@/assets/scss/article.scss";
+main{
+  padding: 10px 0;
+}
   
 </style>

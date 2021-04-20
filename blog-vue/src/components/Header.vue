@@ -25,7 +25,7 @@ h1,h2,h3,h4{
 }
 header{
   background-color: $base_color;
-  height: 60px;
+  height: get_size(120px);
   position: relative;
   .menu{
     width: get_size(90px);
