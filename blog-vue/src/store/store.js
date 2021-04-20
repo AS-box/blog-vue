@@ -52,7 +52,7 @@ const store = new Vuex.Store({
           "id": file.id
         })
         .then(res => {
-        console.log(file,res)
+        console.log(file,res )
       })
     },
     async postAtricle(state, article) {
@@ -67,7 +67,7 @@ const store = new Vuex.Store({
           "special":article.special
         })
         .then(res => {
-        console.log(article,res)
+        console.log(article,res,'lint回避')
       })
     }
 

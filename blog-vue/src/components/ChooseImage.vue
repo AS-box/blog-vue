@@ -1,11 +1,10 @@
 <template>
   <div id="chooseImage">
     <button type="button" @click="openList">写真を選択</button>
-    <!-- <div class="chooseImage_list">  -->
     <div class="chooseImage_list" v-if="isOpenList" v-on:click.prevent="closeList"> 
 
       <ul>
-        <li v-for="image in imagesList" :key="image.id"><a href=""  v-on:click.prevent="choose(image.id)" ><img :src="getImgeUrl(image.name)" alt=""></a></li>
+        <li v-for="image in imagesList" :key="image.id"><a href=""  v-on:click.prevent="choose(image.name)" ><img :src="getImgeUrl(image.name)" alt=""></a></li>
       </ul>
     </div>
   </div>
@@ -40,17 +39,17 @@ export default {
     closeList(){
       this.isOpenList = false
     },
-    choose(id){
+    choose(name){
       const category = this.$props.category.toString()
-      this.$emit(category,id)
+      this.$emit(category,name)
       this.isOpenList = false
-    },
-    showThumb(id,boo){
-      this.isChoosed = true
-      const image = this.imagesList.find((image) => image.id === id)
-      this.choseImage = image
-      this.isShowThmb = boo
     }
+    // showThumb(id,boo){
+    //   this.isChoosed = true
+    //   const image = this.imagesList.find((image) => image.id === id)
+    //   this.choseImage = image
+    //   this.isShowThmb = boo
+    // }
   }
 }
 </script>

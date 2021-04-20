@@ -6,7 +6,7 @@
       <h2>画像アップロード</h2>
       <upload-image></upload-image>
       <h2>キービジュアル</h2>
-      <choose-image @kv="setkv" category="kv" :id="article.kvId"></choose-image>
+      <choose-image @kv="setkv" category="kv" :name="article.kvName"></choose-image>
       <button @click='deleteKv'>キービジュアルを破棄</button>
       <img :src="kvImgUrl" alt="">
     </div>
@@ -104,7 +104,7 @@ export default {
         date:'',
         tag:'',
         category:'',
-        kvNme:'',
+        kvName:'',
         text:'',
         special:''
       },
@@ -129,16 +129,14 @@ export default {
       }
     },
     showThumb(){
-      const imagesList = this.$store.state.images
-      const image = imagesList.find((image) => image.id === this.kvId)
-      this.kvImgUrl  = this.getImgeUrl(image.name)
+      this.kvImgUrl  = this.getImgeUrl(this.article.kvName)
     },
-    setkv(kvid){
-      this.kvId = kvid
+    setkv(name){
+      this.article.kvName = name
       this.showThumb()
     },
     deleteKv(){
-      this.kvId = ''
+      this.article.kvName = ''
       this.kvImgUrl = ''
     },
     selectMark(e){
@@ -168,6 +166,7 @@ export default {
     },
     postArticle(){
       return new Promise((resolve)=>{
+        console.log(this.article)
         this.load = true
         this.$store.dispatch('postAtricle',this.article)
         resolve()
@@ -182,6 +181,7 @@ export default {
 </script>
 <style lang="scss">
 @import "@/assets/scss/common.scss";
+@import "@/assets/scss/article.scss";
 #create{
   padding:get_size(40px);
   h2{
