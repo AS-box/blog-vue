@@ -45,6 +45,41 @@
       "text": "#### aaa",
       "special": "normal",
       "id": 8
+    },
+    {
+      "title": "アイウエオアイウエオ",
+      "date": "2021/4/21/11:6:6",
+      "tag": [
+        "海、海岸、空"
+      ],
+      "category": "javascript",
+      "kvName": "IMG_2151.jpg",
+      "text": "#### qqqqq",
+      "special": "pickup",
+      "id": 9
+    },
+    {
+      "title": "新しい画像",
+      "date": "2021/4/21/12:3:12",
+      "tag": "海、海岸、空",
+      "category": "HTML",
+      "kvName": "IMG_0472.png",
+      "text": "### aaaaaa",
+      "special": "normal",
+      "id": 10
+    },
+    {
+      "title": "自キャラ紹介",
+      "date": "2021/4/21/14:5:28",
+      "tag": [
+        "褐色",
+        "白髪"
+      ],
+      "category": "イラスト",
+      "kvName": "IMG_2151.jpg",
+      "text": "### 名前\nデェスターエイムズ\n#### 性別\n男性\n##### 好きな食べ物\n- ぶどう\n- みかん\n- りんご",
+      "special": "pickup",
+      "id": 11
     }
   ],
   "images": [
@@ -62,6 +97,11 @@
       "name": "IMG_2151.jpg",
       "date": "2021/4/16/11:39:57",
       "id": "2803648"
+    },
+    {
+      "name": "IMG_0472.png",
+      "date": "2021/4/21/11:20:49",
+      "id": "1373116"
     }
   ]
 }

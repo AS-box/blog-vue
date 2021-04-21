@@ -28,9 +28,9 @@
       <h2>本文</h2>
       <select name="" id="" @change="selectMark($event)" >
         <option disabled value="" selected>見出しを選ぶ</option>
-        <option value="#### ">見出し1</option>
-        <option value="##### ">見出し2</option>
-        <option value="###### ">見出し3</option>
+        <option value="### ">見出し1</option>
+        <option value="#### ">見出し2</option>
+        <option value="##### ">見出し3</option>
       </select>
       <select name="" id="" @change="selectMark($event)">
         <option disabled value="" selected>引用の形を選ぶ</option>
@@ -68,16 +68,18 @@
     <button @click="toConfirm">確認する</button>
   </div>
   <div id="confirm" v-show="isConfirm">
-    <article id="article" :class="article.special">
-      <h2>confirm</h2>
-      <img :src="kvImgUrl" alt="">
-      <h3>{{article.title}}</h3>
-      <span>{{ article.category }}</span>
-      <div ref="confirm_text" class="confirm-text"></div>
-      <ul class="article_tag" v-if="article.tag !== ''">
-        <li v-for="(tag,key) in arrayTag" :key="key">{{tag}}</li>
-      </ul>   
-    </article>
+    <p>下記の内容で投稿されます。</p>
+        <div id="article">
+          <img :src="kvImgUrl" alt="">
+          <span><font-awesome-icon icon="pen-nib" />{{article.date}}</span>
+          <h2>{{article.title}}</h2>
+          <p ref="article_text" class="article_text"></p>
+          <div class="article_tagList">
+            <ul>
+              <li v-for="(tag,key) in article.tag" :key="key"><span><font-awesome-icon icon="hashtag" /></span>{{tag}}</li>
+            </ul>
+          </div>
+        </div>
     <button @click="toForm">戻る</button>
     <button @click="postArticle">決定</button>
   </div>
@@ -85,6 +87,7 @@
 </div>
 </template>
 <script>
+'use strict';
 import UploadImage from '../components/UploadImage'
 import ChooseImage from '../components/ChooseImage'
 import Header from '../components/Header'
@@ -150,12 +153,19 @@ export default {
       this.article.text = area.value.substr(0, area.selectionStart) + mark + area.value.substr(area.selectionStart);
     },
     showText(){
-      this.$refs.confirm_text.innerHTML = marked(this.article.text)
+      this.$refs.article_text.innerHTML = marked(this.article.text)
+    },
+    getTags(){
+      if(typeof this.article.tag == 'string'){
+        console.log(typeof this.article.tag)
+        this.article.tag = this.article.tag.split(',');
+      }
     },
     toConfirm(){
       this.article.date = this.getDate()
       this.setTitle()
       this.showText()
+      this.getTags()
       this.isConfirm = true
     },
     toForm(){
@@ -166,7 +176,6 @@ export default {
     },
     postArticle(){
       return new Promise((resolve)=>{
-        console.log(this.article)
         this.load = true
         this.$store.dispatch('postAtricle',this.article)
         resolve()
@@ -214,6 +223,15 @@ export default {
       padding-left: 0;
       li{
         list-style-type:none;
+      }
+    }
+  }
+}
+#confirm{
+    #article{
+    .article_tagList{
+      ul{
+        padding:0;
       }
     }
   }
