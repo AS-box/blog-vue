@@ -20,6 +20,9 @@ export default {
       load:false
     }
   },
+  created(){
+    this.getArticleTag('CSS')
+  },
   async mounted(){//もっと良い書き方ありそう
     this.load = true
     await this.$store.commit('getArticles')
@@ -34,6 +37,10 @@ export default {
   methods:{
     toArticle(data){
       this.$router.push({name:'Article',params:{data:data}})
+    },
+    getArticleTag(category){
+      const articles = this.articles.find((article)=>article.category === category)
+      console.log(articles)
     }
   }
 }

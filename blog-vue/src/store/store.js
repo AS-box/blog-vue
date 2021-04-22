@@ -8,6 +8,7 @@ const store = new Vuex.Store({
     images: [],
     url: './js/data/',
     articles: [],
+    category: ['その他','HTML','CSS','javascript','学習','デザイン','イラスト']
   },
   mutations: {
     // setImages() {

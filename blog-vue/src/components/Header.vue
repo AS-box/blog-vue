@@ -1,6 +1,11 @@
 <template>
   <header>
-    <div class="menu"><font-awesome-icon icon="hamburger" /></div>
+    <div class="menu_btn close"><font-awesome-icon icon="hamburger" /></div>
+    <div>
+      <ul class="category_list" v-for="(category,key) in categories" :key="key">
+        <li class="menu_categorr"><a href="">{{ category }}</a></li>
+      </ul>
+    </div>
     <div class="logo"><img src="@/assets/image/asport_logo.png" alt=""></div>
   </header>
 </template>
@@ -9,7 +14,14 @@
 import 'normalize.css'
 export default {
   name:'Header',
+  data(){
+    return {
+      name:'',
+      categories:this.$store.state.category
+    }
+  },
   created(){
+    console.log(this.category)
   },
   methods:{
   }
@@ -27,7 +39,7 @@ header{
   background-color: $base_color;
   height: get_size(120px);
   position: relative;
-  .menu{
+  .menu_btn{
     width: get_size(90px);
     height: get_size(90px);
     font-size: get_size(45px);
