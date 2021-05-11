@@ -1,8 +1,9 @@
 <template>
     <div id="app">
-      <Header></Header>
+      <Header @selectedCategory='catchCategory'></Header>
       <main>
-        <div id="articleList">
+        <ArticleList :category='category' :key="category"></ArticleList>
+        <!-- <div id="articleList">
         <img src="@/assets/image/Preloader_1.gif" alt="" v-if="load">
           <div class="list">
             <div class="item" v-for="(article,key) in articles" :key="key" @click="toArticle(article)">
@@ -10,7 +11,7 @@
               <p>{{ article.title }}</p>
             </div>
           </div>
-        </div> 
+        </div>  -->
       </main>
       <Footer></Footer>
     </div>
@@ -21,6 +22,7 @@ import Vue from 'vue';
 import VueHead from 'vue-head'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import ArticleList from '../components/ArticleList.vue';
 
 Vue.use(VueHead)
 export default {
@@ -28,35 +30,19 @@ export default {
   components:{
     Header,
     Footer,
+    ArticleList
   },
   data(){
     return{
-      articles:this.$store.state.articles,
-      // images:[],
-      load:false
+      category:''
     }
-  },
-  created(){
-    this.getArticleTag('CSS')
-  },
-  async mounted(){//もっと良い書き方ありそう
-    this.load = true
-    await this.$store.commit('getArticles')
-    await this.$store.commit('getImages')
-    this.load = false
-  },
-  computed:{
-    // articles(){
-    //   return this.$store.state.articles
-    // }
   },
   methods:{
     toArticle(data){
       this.$router.push({name:'Article',params:{data:data}})
     },
-    getArticleTag(category){
-      const articles = this.articles.find((article)=>article.category === category)
-      console.log(articles)
+    catchCategory(category){
+      this.category = category
     }
   },
   head:{

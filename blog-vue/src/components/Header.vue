@@ -4,10 +4,12 @@
       <div v-if="!isOpen"><font-awesome-icon  icon="hamburger" /></div>
       <div v-if="isOpen"><font-awesome-icon icon="times" /></div>
     </div>
-    <div class="logo"><img src="@/assets/image/asport_logo.png" alt=""></div>
-    <ul class="category_list" :class="{show:isOpen,hide:!isOpen}">
-      <li class="category_item" v-for="(category,key) in categories" :key="key"><a href="">{{ category }}</a></li>
-    </ul>
+    <div @click="selectCategory()" class="logo"><img src="@/assets/image/asport_logo.png" alt=""></div>
+    <transition name="category-list">
+      <ul class="category_list" v-if="isOpen">
+        <li @click="selectCategory(category)" class="category_item" v-for="(category,key) in categories" :key="key">{{ category }}</li>
+      </ul>
+    </transition>
   </header>
 </template>
 
@@ -18,12 +20,9 @@ export default {
   data(){
     return {
       name:'',
-      categories:this.$store.state.category,
+      categories:['HTML','CSS','javascript','学習','デザイン','イラスト','その他'],
       isOpen:false
     }
-  },
-  created(){
-    console.log(this.category)
   },
   methods:{
     toggleMenu(){
@@ -35,6 +34,9 @@ export default {
       }else{
         this.isOpen = true  
       }
+    },
+    selectCategory(category){
+      this.$emit('selectedCategory',category)
     }
   }
   
@@ -51,7 +53,6 @@ header{
   background-color: $base_color;
   height: get_size(120px);
   position: relative;
-  z-index: 100;
   .menu_btn{
     width: get_size(90px);
     height: get_size(90px);
@@ -61,9 +62,10 @@ header{
     border-radius: 50%;
     position: absolute;
     top: 50%;
+    right: 0;
     transform: translateY(-50%);
     -webkit-transform: translateY(-50%);
-    margin-left: 10px;
+    margin-right: 10px;
     svg{
       position: absolute;
       top: 50%;
@@ -72,40 +74,18 @@ header{
       -webkit-transform: translateY(-50%) translateX(-50%);
     }
   }
+  .category-list-enter-active, .category-list-leave-active {
+    transform: translate(0px, 0px); 
+    transition:transform .5s;
+  }
+  .category-list-enter, .category-list-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    transform: translateY(-100vh) translateY(0px);
+  }
   .category_list{
-    @keyframes slideleft {
-      0% {
-        top: get_size(120px);
-        width: 0;
-      }
-      100% {
-        width: 100%;
-      }
-    }
-    @keyframes slideright {
-      0% {
-        top: get_size(120px);
-        width: 100%;
-      }
-      100% {
-        width: 0;
-      }
-    }
-    &.show{
-      animation-name: slideleft;
-      animation-duration: 0.2s;
-      animation-timing-function: ease-out;
-      width: 100%;
-    }
-    &.hide{
-      animation-name: slideright;
-      animation-duration: 0.2s;
-      animation-timing-function: ease-out;
-      width: 0;
-    }
+    height: auto;
     overflow: hidden;
     position: absolute;
-    width: 0;
+    width: 100%;
     margin: 0;
     top: get_size(120px);
     background: $base_color;
@@ -116,9 +96,6 @@ header{
       padding-left: get_size(90px);
       border-top: 2px dashed #fff;
       white-space: nowrap;
-      a{
-        color: #fff;
-      }
     }
   }
   img{
