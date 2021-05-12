@@ -3,15 +3,6 @@
       <Header @selectedCategory='catchCategory'></Header>
       <main>
         <ArticleList :category='category' :key="category"></ArticleList>
-        <!-- <div id="articleList">
-        <img src="@/assets/image/Preloader_1.gif" alt="" v-if="load">
-          <div class="list">
-            <div class="item" v-for="(article,key) in articles" :key="key" @click="toArticle(article)">
-              <img :src="getImgeUrl(article.kvName)" alt="">
-              <p>{{ article.title }}</p>
-            </div>
-          </div>
-        </div>  -->
       </main>
       <Footer></Footer>
     </div>
@@ -34,6 +25,7 @@ export default {
   },
   data(){
     return{
+
       category:''
     }
   },
