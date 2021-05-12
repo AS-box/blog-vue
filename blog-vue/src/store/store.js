@@ -11,12 +11,6 @@ const store = new Vuex.Store({
     
   },
   mutations: {
-    // setImages() {
-    //   fetch('http://localhost:3000/images')
-    //   .then( res => res.json() )
-    //     .then(res => this.state.images = res)
-
-    // },
     async getArticles() {
       this.state.articles.splice(0,this.state.articles.length)
       await axios

@@ -10,7 +10,7 @@ import Header from '../components/Header'
 import Item from '../components/Item'
 
 export default {
-  name:'Edit',
+  name:'Create',
   components:{
     Header,
     Item
