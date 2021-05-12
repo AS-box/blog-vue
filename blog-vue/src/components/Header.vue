@@ -51,31 +51,30 @@ h1,h2,h3,h4{
   padding:0;
 }
 header{
-  .header_bar{
-    background-color: $base_color;
-    height: get_size(120px);
-    position: relative;
-    .menu_btn{
-      width: get_size(90px);
-      height: get_size(90px);
-      font-size: get_size(45px);
-      color: $base_color;
-      background: #fff;
-      border-radius: 50%;
+  background-color: $base_color;
+  height: get_size(120px);
+  position: relative;
+  .menu_btn{
+    width: get_size(90px);
+    height: get_size(90px);
+    font-size: get_size(45px);
+    color: $base_color;
+    background: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    margin-right: 10px;
+    svg{
       position: absolute;
       top: 50%;
-      right: 0;
-      transform: translateY(-50%);
-      -webkit-transform: translateY(-50%);
-      margin-right: 10px;
-      svg{
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translateY(-50%) translateX(-50%);
-        -webkit-transform: translateY(-50%) translateX(-50%);
-      }
+      left: 50%;
+      transform: translateY(-50%) translateX(-50%);
+      -webkit-transform: translateY(-50%) translateX(-50%);
     }
+    
   }
   .category-list-enter-active, .category-list-leave-active {
     transform: translate(0px, 0px); 
@@ -99,6 +98,7 @@ header{
       padding-left: get_size(90px);
       border-top: 2px dashed #fff;
       white-space: nowrap;
+      color: #fff;
     }
   }
   img{
