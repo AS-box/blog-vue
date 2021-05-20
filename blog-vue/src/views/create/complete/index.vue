@@ -1,13 +1,11 @@
 <template>
-  <div>
     <Complete></Complete>
-  </div>
 </template>
 <script>
-import Complete from '../components/Complete.vue'
+import Complete from '../../../components/Complete'
 
 export default {
-  name:'FormComplete',
+  name:'CretateComplete',
   components:{
     Complete
   },

@@ -1,6 +1,4 @@
 <template>
-    <div id="app">
-      <Header></Header>
       <main>
         <div id="article">
           <img :src="getImgeUrl(data.kvName)" alt="">
@@ -12,21 +10,19 @@
               <li v-for="(tag,key) in data.tag" :key="key"><span><font-awesome-icon icon="hashtag" /></span>{{tag}}</li>
             </ul>
           </div>
+          <div class="article_update">
+            <router-link :to="{name:'Edit',params:{article:data.id}}"><span><font-awesome-icon icon="edit" /></span></router-link>
+            <span><font-awesome-icon icon="trash-alt" /></span>
+          </div>
         </div>
       </main>
-      <Footer></Footer>
-    </div>
 </template>
 <script>
-import Header from '../components/Header'
-import Footer from '../components/Footer'
 import marked from 'marked';
 
 export default {
   name:'Article',
   components:{
-    Header,
-    Footer
   },
   props:{
     'article':{}

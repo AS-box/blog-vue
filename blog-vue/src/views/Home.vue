@@ -1,41 +1,34 @@
 <template>
-    <div id="app">
-      <Header @selectedCategory='catchCategory'></Header>
-      <main>
-        <ArticleList :category='category' :key="category"></ArticleList>
-      </main>
-      <Footer></Footer>
-    </div>
+  <ArticleList :category='category' :key="category"></ArticleList>
 </template>
 
 <script>
 import Vue from 'vue';
 import VueHead from 'vue-head'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
 import ArticleList from '../components/ArticleList.vue';
 
 Vue.use(VueHead)
 export default {
   name:'Home',
   components:{
-    Header,
-    Footer,
     ArticleList
+  },
+  props:{
   },
   data(){
     return{
-
-      category:''
+      category:String
+    }
+  },
+  watch:{
+  '$route': function (to) {
+      this.category = to.query.category
     }
   },
   methods:{
     toArticle(data){
       this.$router.push({name:'Article',params:{data:data}})
     },
-    catchCategory(category){
-      this.category = category
-    }
   },
   head:{
     title:{

@@ -1,22 +1,19 @@
 <template>
-<div id="app">
-  <Header></Header>
-  <Item></Item>
-</div>
+  <Item :dataId="id"></Item>
 </template>
 <script>
 'use strict';
-import Header from '../components/Header'
-import Item from '../components/Item'
+import Item from '../../components/Item'
 
 export default {
   name:'Edit',
   components:{
-    Header,
     Item
   },
+  props:['id'],
   data(){
     return{
+      dataID:this.id
     }
   },
   beforeCreate(){

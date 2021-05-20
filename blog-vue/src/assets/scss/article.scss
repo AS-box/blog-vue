@@ -96,4 +96,11 @@ $blue:#306AA7;
         font-size: get_size(28px);
       }
     }
+    .article_update{
+      text-align: right;
+      padding: get_size(20px);
+      a{
+        color: $blue;
+      }
+    }
   }

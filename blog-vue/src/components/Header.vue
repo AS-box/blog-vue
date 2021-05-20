@@ -7,7 +7,10 @@
     <div @click="selectCategory()" class="logo"><img src="@/assets/image/asport_logo.png" alt=""></div>
     <transition name="category-list">
       <ul class="category_list" v-if="isOpen">
-        <li @click="selectCategory(category)" class="category_item" v-for="(category,key) in categories" :key="key">{{ category }}</li>
+        <li class="category_item" v-for="(category,key) in categories" :key="key" @click='selectCategory(category)'>
+          <!-- <router-link :to="{name:'Home',query:{category:category}}">{{ category }}</router-link> -->
+          {{category}}
+        </li>
       </ul>
     </transition>
   </header>
@@ -28,6 +31,7 @@ export default {
     toggleMenu(){
 
     },
+
     menuBtn(){
       if(this.isOpen){
         this.isOpen = false
@@ -36,7 +40,7 @@ export default {
       }
     },
     selectCategory(category){
-      this.$emit('selectedCategory',category)
+      this.$router.push({ name: 'Home', query: { category: category } })
       this.isOpen = false
     }
   }

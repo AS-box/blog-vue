@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import Edit from './views/Edit.vue'
-import Create from './views/Create.vue'
-import FormComplete from './views/FormComplete.vue'
-import Article from './views/Article.vue'
+import Edit from './views/edit'
+import Create from './views/create'
+import EditComplete from './views/edit/complete'
+import CreateComplete from './views/create/complete'
+import Article from './views/article'
 
 Vue.use(Router)
 
@@ -13,24 +14,35 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component:Home
+      component: Home,
+      name:'Home'
     },
     {
-      path: '/edit',
+      path: '/edit/:id',
       component: Edit,
+      name: 'Edit',
+      props:true
     },
     {
       path: '/create',
       component: Create,
-    },
-    {
-      path: '/formComplete',
-      component: FormComplete,
-      name:'FormComplete',
+      name: 'Create',
       props:true
     },
     {
-      path: '/article/',
+      path: '/edit/complete',
+      component: EditComplete,
+      name:'EditComplete',
+      props:true
+    },
+    {
+      path: '/create/complete',
+      component: CreateComplete,
+      name:'CreateComplete',
+      props:true
+    },
+    {
+      path: '/article/:id',
       component: Article,
       name:'Article',
       props: true

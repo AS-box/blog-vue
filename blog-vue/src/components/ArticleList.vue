@@ -7,7 +7,6 @@
         <p>{{ article.title }}</p>
       </div>
     </div>
-    <p v-else>該当の記事がありません</p>
   </div>
 </template>
 
@@ -23,9 +22,7 @@ export default {
     }
   },
   created(){
-    if(this.category){
-      this.getArticleCategory(this.category)
-    }
+    this.getArticleCategory(this.category)
   },
   watch:{
     // articles:function(newVal,oldVal){
@@ -42,11 +39,15 @@ export default {
     toArticle(data){
       this.$router.push({name:'Article',params:{data:data}})
     },
-    getArticleCategory(){
-      this.articles = []
-      const articles = this.$store.state.articles.filter((article)=>article.category === this.category)      
-      this.articles = articles
-      console.log(this.articles.length)
+    getArticleCategory(category){
+      if(category){
+        this.articles = []
+        const articles = this.$store.state.articles.filter((article)=>article.category === this.category)      
+        this.articles = articles
+      }
+      if(this.articles.length === 0){
+        this.articles = this.$store.state.articles
+      }
     }
   }
 }

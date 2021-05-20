@@ -1,18 +1,13 @@
 <template>
-<div id="app">
-  <Header></Header>
   <Item></Item>
-</div>
 </template>
 <script>
 'use strict';
-import Header from '../components/Header'
-import Item from '../components/Item'
+import Item from '../../components/Item'
 
 export default {
   name:'Create',
   components:{
-    Header,
     Item
   },
   data(){

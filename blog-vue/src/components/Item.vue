@@ -97,6 +97,7 @@ export default {
     UploadImage,
     ChooseImage,
   },
+  props:['dataId'],
   data(){
     return{
       article:{
