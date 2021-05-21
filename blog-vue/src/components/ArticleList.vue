@@ -22,32 +22,26 @@ export default {
     }
   },
   created(){
-    this.getArticleCategory(this.category)
+    this.getArticleCategory()
+    this.$store.commit('getArticles')
+    this.$store.commit('getImages')
   },
-  watch:{
-    // articles:function(newVal,oldVal){
-    //   console.log(newVal,oldVal)
-    // }
-  },
-  async mounted(){//もっと良い書き方ありそう
-    this.load = true
-    await this.$store.commit('getArticles')
-    await this.$store.commit('getImages')
-    this.load = false
+  mounted(){
+
   },
   methods:{
     toArticle(data){
       this.$router.push({name:'Article',params:{data:data}})
     },
-    getArticleCategory(category){
-      if(category){
-        this.articles = []
-        const articles = this.$store.state.articles.filter((article)=>article.category === this.category)      
+    getArticleCategory(){
+      this.load = true
+      if(this.category !== 'All'){
+        const articles = this.$store.state.articles.filter((article)=>article.category === this.category)    
         this.articles = articles
+      }else{
+        this.$router.push({name:'Home',query:{category:this.category}})
       }
-      if(this.articles.length === 0){
-        this.articles = this.$store.state.articles
-      }
+      this.load = false
     }
   }
 }

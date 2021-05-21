@@ -40,7 +40,7 @@ export default {
       }
     },
     selectCategory(category){
-      this.$router.push({ name: 'Home', query: { category: category } })
+      this.$router.push({ name: 'Home', query: { category: category } }, () => {})
       this.isOpen = false
     }
   }

@@ -17,7 +17,7 @@ export default {
   },
   data(){
     return{
-      category:String
+      category:'All'
     }
   },
   watch:{

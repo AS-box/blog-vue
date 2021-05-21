@@ -12,7 +12,7 @@ const store = new Vuex.Store({
   },
   mutations: {
     async getArticles() {
-      this.state.articles.splice(0,this.state.articles.length)
+      this.state.articles.splice(0)
       await axios
         .get('http://localhost:3000/articles')
           .then(res => {
