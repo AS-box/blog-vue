@@ -22,6 +22,7 @@ export default {
     }
   },
   created(){
+    window.localStorage.clear()
     this.load = true
     this.$store.commit('getArticles')
     this.$store.commit('getImages')
@@ -30,7 +31,7 @@ export default {
   },
   methods:{
     toArticle(data){
-      this.$router.push({name:'Article',query:{id:data.id}})
+      this.$router.push({name:'Article',params:{data:data}})
     },
     getArticleCategory(){
       if(this.category !== 'All'){

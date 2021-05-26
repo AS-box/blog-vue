@@ -195,7 +195,8 @@ export default {
         resolve()
       }).then(() =>{
         this.load = false
-        this.$router.push({path:'formComplete', name:'FormComplete'})
+        this.$router.push({path:'/edit/complete', name:'Complete'})
+        window.localStorage.clear()
       })
     }
     
