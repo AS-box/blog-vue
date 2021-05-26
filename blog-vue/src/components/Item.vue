@@ -80,7 +80,8 @@
           </div>
         </div>
     <button @click="toForm">戻る</button>
-    <button @click="postArticle">決定</button>
+    <button v-if="isPost" @click="postArticle">決定</button>
+    <button v-if="!isPost" @click="putArticle">編集決定</button>
   </div>
   <img src="@/assets/image/Preloader_1.gif" alt="" v-if="load">
 </div>
@@ -112,16 +113,25 @@ export default {
       isConfirm:false,
       kvImgUrl:'',
       load:false,
-      categoryList:['その他','HTML','CSS','javascript','学習','デザイン','イラスト']
+      categoryList:['その他','HTML','CSS','javascript','学習','デザイン','イラスト'],
+      isPost:true
     }
   },
   beforeCreate(){
     this.$store.commit('getImages')
+    this.$store.commit('getArticles')
+
+    
+  },
+  mounted(){
+    if(this.$route.query.data){
+      const data = JSON.parse(window.localStorage.article)
+      this.article = data
+      this.showThumb()
+      this.isPost = false
+    }
   },
   computed:{
-    arrayTag(){
-      return this.article.tag.split(',')
-    }
   },
   methods:{
     setTitle(){
@@ -155,7 +165,6 @@ export default {
     },
     getTags(){
       if(typeof this.article.tag == 'string'){
-        console.log(typeof this.article.tag)
         this.article.tag = this.article.tag.split(',');
       }
     },
@@ -169,13 +178,20 @@ export default {
     toForm(){
       this.isConfirm = false
     },
-    toComplete(){
-
-    },
     postArticle(){
       return new Promise((resolve)=>{
         this.load = true
         this.$store.dispatch('postAtricle',this.article)
+        resolve()
+      }).then(() =>{
+        this.load = false
+        this.$router.push({path:'formComplete', name:'FormComplete'})
+      })
+    },
+    putArticle(){
+      return new Promise((resolve)=>{
+        this.load = true
+        this.$store.dispatch('putAtricle',this.article)
         resolve()
       }).then(() =>{
         this.load = false

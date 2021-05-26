@@ -1,7 +1,7 @@
 <template>
   <div id="articleList">
-  <img src="@/assets/image/Preloader_1.gif" alt="" v-if="load">
-    <div class="list" v-if="articles.length">
+  <img src="@/assets/image/Preloader_1.gif" alt="" v-show="load">
+    <div class="list" v-if="articles.length" v-show="!load">
       <div class="item" v-for="(article,key) in articles" :key="key" @click="toArticle(article)">
         <img :src="getImgeUrl(article.kvName)" alt="">
         <p>{{ article.title }}</p>
@@ -22,26 +22,24 @@ export default {
     }
   },
   created(){
-    this.getArticleCategory()
+    this.load = true
     this.$store.commit('getArticles')
     this.$store.commit('getImages')
-  },
-  mounted(){
-
+    this.getArticleCategory()
+    this.load = false
   },
   methods:{
     toArticle(data){
-      this.$router.push({name:'Article',params:{data:data}})
+      this.$router.push({name:'Article',query:{id:data.id}})
     },
     getArticleCategory(){
-      this.load = true
       if(this.category !== 'All'){
         const articles = this.$store.state.articles.filter((article)=>article.category === this.category)    
         this.articles = articles
       }else{
-        this.$router.push({name:'Home',query:{category:this.category}})
+        this.$router.push({name:'Home',query:{category:this.category}},() => {
+        })
       }
-      this.load = false
     }
   }
 }

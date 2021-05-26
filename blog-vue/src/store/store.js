@@ -64,6 +64,21 @@ const store = new Vuex.Store({
         .then(res => {
         console.log(article,res,'lint回避')
       })
+    },
+    async putAtricle(state, article) {
+      await axios
+        .put('http://localhost:3000/articles/' + article.id, {
+          "title":article.title,
+          "date":article.date,
+          "tag":article.tag,
+          "category":article.category,
+          "kvName":article.kvName,
+          "text":article.text,
+          "special":article.special
+        })
+        .then(res => {
+        console.log(res)
+      })
     }
 
     // postAtricle(state, article) {

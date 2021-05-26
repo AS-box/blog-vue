@@ -11,7 +11,7 @@
             </ul>
           </div>
           <div class="article_update">
-            <router-link :to="{name:'Edit',params:{article:data.id}}"><span><font-awesome-icon icon="edit" /></span></router-link>
+            <router-link :to="{path:'article/edit',query:{data:true}}"><span><font-awesome-icon icon="edit" /></span></router-link>
             <span><font-awesome-icon icon="trash-alt" /></span>
           </div>
         </div>
@@ -33,7 +33,6 @@ export default {
     }
   },
   beforeCreate(){
-    console.log(this.data)
   },
   mounted(){
     if(this.$route.params.data){

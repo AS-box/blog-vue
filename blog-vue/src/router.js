@@ -1,10 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import Edit from './views/edit'
+import Edit from './views/article/edit.vue'
 import Create from './views/create'
-import EditComplete from './views/edit/complete'
-import CreateComplete from './views/create/complete'
+import Complete from './views/edit/complete'
 import Article from './views/article'
 
 Vue.use(Router)
@@ -18,7 +17,13 @@ export default new Router({
       name:'Home'
     },
     {
-      path: '/edit/:id',
+      path: '/article',
+      component: Article,
+      name:'Article',
+      props: true
+    },
+    {
+      path: '/article/edit',
       component: Edit,
       name: 'Edit',
       props:true
@@ -31,22 +36,18 @@ export default new Router({
     },
     {
       path: '/edit/complete',
-      component: EditComplete,
-      name:'EditComplete',
+      component: Complete,
+      name:'Complete',
       props:true
     },
     {
       path: '/create/complete',
-      component: CreateComplete,
-      name:'CreateComplete',
+      component: Complete,
+      name:'Complete',
       props:true
     },
-    {
-      path: '/article/:id',
-      component: Article,
-      name:'Article',
-      props: true
-    }
+
+
 
 
   ]
