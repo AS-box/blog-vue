@@ -50,7 +50,9 @@ export default {
       this.$nextTick(() => this.$refs.article_text.innerHTML = marked(this.data.text))
     },
     getTags(){
+      if(this.data.tag === String){
       this.data.tag = this.data.tag.split(',');
+      }
     },
     deleteArticle(){
       const result = window.confirm('本当に削除しますか？')
