@@ -33,14 +33,20 @@ export default {
     }
   },
   beforeCreate(){
-  },
-  mounted(){
     if(this.$route.params.data){
       localStorage.setItem('article', JSON.stringify(this.$route.params.data))
       this.data = this.$route.params.data
     }else{
       this.data = JSON.parse(localStorage.getItem('article'))
     }
+  },
+  mounted(){
+    // if(this.$route.params.data){
+    //   localStorage.setItem('article', JSON.stringify(this.$route.params.data))
+    //   this.data = this.$route.params.data
+    // }else{
+    //   this.data = JSON.parse(localStorage.getItem('article'))
+    // }
     
     this.getText()
     this.getTags()

@@ -1,6 +1,5 @@
 <template>
 <div id="item">
-  <form action="">
     <div id="create" v-show="!isConfirm">
       <div class="create-kv">
         <h2>画像アップロード</h2>
@@ -67,7 +66,6 @@
       </div>
       <button @click="toConfirm">確認する</button>
     </div>
-  </form>
   <div id="confirm" v-show="isConfirm">
     <p>下記の内容で投稿されます。</p>
         <div id="article">
