@@ -12,7 +12,7 @@
           </div>
           <div class="article_update">
             <router-link :to="{path:'article/edit',query:{data:true}}"><span><font-awesome-icon icon="edit" /></span></router-link>
-            <span><font-awesome-icon icon="trash-alt" /></span>
+            <span @click="deleteArticle"><font-awesome-icon icon="trash-alt" /></span>
           </div>
         </div>
       </main>
@@ -51,6 +51,13 @@ export default {
     },
     getTags(){
       this.data.tag = this.data.tag.split(',');
+    },
+    deleteArticle(){
+      const result = window.confirm('本当に削除しますか？')
+      if(result){
+        this.$store.commit('deleteArticle',this.data.id)
+        this.$router.push({path:'/', name:'Home'})
+      }
     }
   }
 }

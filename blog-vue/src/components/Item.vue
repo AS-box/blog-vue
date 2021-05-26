@@ -1,71 +1,73 @@
 <template>
 <div id="item">
-  <div id="create" v-show="!isConfirm">
-    <div class="create-kv">
-      <h2>画像アップロード</h2>
-      <upload-image></upload-image>
-      <h2>キービジュアル</h2>
-      <choose-image @kv="setkv" category="kv" :name="article.kvName"></choose-image>
-      <button @click='deleteKv'>キービジュアルを破棄</button>
-      <img :src="kvImgUrl" alt="">
+  <form action="">
+    <div id="create" v-show="!isConfirm">
+      <div class="create-kv">
+        <h2>画像アップロード</h2>
+        <upload-image></upload-image>
+        <h2>キービジュアル</h2>
+        <choose-image @kv="setkv" category="kv" :name="article.kvName"></choose-image>
+        <button @click='deleteKv'>キービジュアルを破棄</button>
+        <img :src="kvImgUrl" alt="">
+      </div>
+      <div class="create-title">
+        <h2>タイトル</h2>
+        <input type="text" name="create-title" v-model="article.title">
+      </div>
+      <div class="create-category">
+        <h2>カテゴリー</h2>
+        <select name="create-category" v-model="article.category">
+          <option v-for="(category,key) in categoryList" :key="key">{{category}}</option>
+        </select>
+      </div>
+      <div class="create-tag">
+        <h2>タグ</h2>
+        <input type="text" name="create-tag" v-model="article.tag">
+      </div>
+      <div class="create-text">
+        <h2>本文</h2>
+        <select name="" id="" @change="selectMark($event)" >
+          <option disabled value="" selected>見出しを選ぶ</option>
+          <option value="### ">見出し1</option>
+          <option value="#### ">見出し2</option>
+          <option value="##### ">見出し3</option>
+        </select>
+        <select name="" id="" @change="selectMark($event)">
+          <option disabled value="" selected>引用の形を選ぶ</option>
+          <option value=">">ノーマル</option>
+          <option value=">>">二重引用</option>
+        </select>
+        <select name="" id="" @change="selectMark($event)">
+          <option disabled value="" selected>強調の形を選ぶ</option>
+          <option value="*文字*">斜体</option>
+          <option value="**文字**">太字</option>
+        </select>
+        <button value="`文字`" @click="selectMark($event)">コード</button>
+        <button value="***" @click="selectMark($event)">水平線</button>
+        <button value="[文字](URL)" @click="selectMark($event)">リンク</button>
+        <choose-image @image="selectImage" category="image"></choose-image>
+        <textarea v-model="article.text" ref="ta"></textarea>
+      </div>
+      <div class="create-pickup">
+        <h2>記事指定</h2>
+        <ul>
+          <li>
+            <input type="radio" id="normal" value="normal" v-model="article.special">
+            <label for="normal">指定なし</label>
+          </li>
+          <li>
+            <input type="radio" id="pickup" value="pickup" v-model="article.special">
+            <label for="pickup">ピックアップ記事に指定する</label>
+          </li>
+          <li>
+            <input type="radio" id="popular" value="popular" v-model="article.special">
+            <label for="popular">人気記事に指定する</label>
+          </li>
+        </ul>
+      </div>
+      <button @click="toConfirm">確認する</button>
     </div>
-    <div class="create-title">
-      <h2>タイトル</h2>
-      <input type="text" name="create-title" v-model="article.title">
-    </div>
-    <div class="create-category">
-      <h2>カテゴリー</h2>
-      <select name="create-category" v-model="article.category">
-        <option v-for="(category,key) in categoryList" :key="key">{{category}}</option>
-      </select>
-    </div>
-    <div class="create-tag">
-      <h2>タグ</h2>
-      <input type="text" name="create-tag" v-model="article.tag">
-    </div>
-    <div class="create-text">
-      <h2>本文</h2>
-      <select name="" id="" @change="selectMark($event)" >
-        <option disabled value="" selected>見出しを選ぶ</option>
-        <option value="### ">見出し1</option>
-        <option value="#### ">見出し2</option>
-        <option value="##### ">見出し3</option>
-      </select>
-      <select name="" id="" @change="selectMark($event)">
-        <option disabled value="" selected>引用の形を選ぶ</option>
-        <option value=">">ノーマル</option>
-        <option value=">>">二重引用</option>
-      </select>
-      <select name="" id="" @change="selectMark($event)">
-        <option disabled value="" selected>強調の形を選ぶ</option>
-        <option value="*文字*">斜体</option>
-        <option value="**文字**">太字</option>
-      </select>
-      <button value="`文字`" @click="selectMark($event)">コード</button>
-      <button value="***" @click="selectMark($event)">水平線</button>
-      <button value="[文字](URL)" @click="selectMark($event)">リンク</button>
-      <choose-image @image="selectImage" category="image"></choose-image>
-      <textarea v-model="article.text" ref="ta"></textarea>
-    </div>
-    <div class="create-pickup">
-      <h2>記事指定</h2>
-      <ul>
-        <li>
-          <input type="radio" id="normal" value="normal" v-model="article.special">
-          <label for="normal">指定なし</label>
-        </li>
-        <li>
-          <input type="radio" id="pickup" value="pickup" v-model="article.special">
-          <label for="pickup">ピックアップ記事に指定する</label>
-        </li>
-        <li>
-          <input type="radio" id="popular" value="popular" v-model="article.special">
-          <label for="popular">人気記事に指定する</label>
-        </li>
-      </ul>
-    </div>
-    <button @click="toConfirm">確認する</button>
-  </div>
+  </form>
   <div id="confirm" v-show="isConfirm">
     <p>下記の内容で投稿されます。</p>
         <div id="article">

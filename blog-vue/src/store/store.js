@@ -31,12 +31,14 @@ const store = new Vuex.Store({
             });
           })
     },
-    // addImages(s, file) {
-    //   this.state.images.push(file)
-    // },
-    // addArticle(s, article) {
-    //   this.state.articles.push(article)
-    // }
+    async deleteArticle(state,id) {
+      console.log(id)
+      await axios
+        .delete('http://localhost:3000/articles/'+ id)
+          .then(res => {
+            console.log('結果'+res)
+          })
+    },
   },
   actions: {
     async postImages(state, file) {
@@ -80,25 +82,6 @@ const store = new Vuex.Store({
         console.log(res)
       })
     }
-
-    // postAtricle(state, article) {
-    //   state.commit('addArticle', article)
-    //   fetch('http://localhost:3000/articles', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json'
-    //     },
-    //     body:JSON.stringify(article)
-    //   })
-    //   .then(res => res.json())
-    //   .then(data => {
-    //   console.log('success:',data)
-    //   }).
-    //   catch(err => {
-    //     console.log('error:',err)
-    //   })
-
-    // },
 
      
   }
