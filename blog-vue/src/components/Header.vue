@@ -4,7 +4,7 @@
       <div v-if="!isOpen"><font-awesome-icon  icon="hamburger" /></div>
       <div v-if="isOpen"><font-awesome-icon icon="times" /></div>
     </div>
-    <div @click="selectCategory()" class="logo"><img src="@/assets/image/asport_logo.png" alt=""></div>
+    <div @click="selectCategory('All')" class="logo"><img src="@/assets/image/asport_logo.png" alt=""></div>
     <transition name="category-list">
       <ul class="category_list" v-if="isOpen">
         <li class="category_item" v-for="(category,key) in categories" :key="key" @click='selectCategory(category)'>
@@ -40,7 +40,9 @@ export default {
       }
     },
     selectCategory(category){
-      this.$router.push({ name: 'Home', query: { category: category } }, () => {})
+      if(category){
+        this.$router.push({ name: 'Home', query: { category: category } }, () => {})
+      }
       this.isOpen = false
     }
   }

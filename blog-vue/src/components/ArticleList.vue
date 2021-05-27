@@ -21,12 +21,13 @@ export default {
       load:false
     }
   },
-  created(){
+  async created(){
     window.localStorage.clear()
     this.load = true
-    this.$store.commit('getArticles')
-    this.$store.commit('getImages')
     this.getArticleCategory()
+    await this.$store.commit('getArticles')
+    await this.$store.commit('getImages')
+    
     this.load = false
   },
   methods:{

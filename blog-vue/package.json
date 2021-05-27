@@ -13,12 +13,14 @@
     "@fortawesome/vue-fontawesome": "^2.0.2",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "fire": "^0.55.1",
     "marked": "^1.2.5",
     "node-sass": "^4.14.1",
     "stylus-loader": "^4.3.1",
     "vue": "^2.6.11",
     "vue-axios": "^3.2.2",
     "vue-head": "^2.2.0",
+    "vuefire": "^3.0.0-alpha.2",
     "vuex-persistedstate": "^4.0.0-beta.3"
   },
   "devDependencies": {
