@@ -4,12 +4,13 @@
       <div v-if="!isOpen"><font-awesome-icon  icon="hamburger" /></div>
       <div v-if="isOpen"><font-awesome-icon icon="times" /></div>
     </div>
-    <div @click="selectCategory('All')" class="logo"><img src="@/assets/image/asport_logo.png" alt=""></div>
+    <router-link :to="{name:'Home',query:{category:'All'}}"><div class="logo"><img src="@/assets/image/asport_logo.png" alt=""></div></router-link>
     <transition name="category-list">
       <ul class="category_list" v-if="isOpen">
-        <li class="category_item" v-for="(category,key) in categories" :key="key" @click='selectCategory(category)'>
-          <!-- <router-link :to="{name:'Home',query:{category:category}}">{{ category }}</router-link> -->
-          {{category}}
+        <li class="category_item" v-for="(category,key) in categories" :key="key">
+        <!-- <li class="category_item" v-for="(category,key) in categories" :key="key" @click='selectCategory(category)'> -->
+          <router-link :to="{name:'Home',query:{category:category}}">{{ category }}</router-link>
+          <!-- {{category}} -->
         </li>
       </ul>
     </transition>
@@ -27,6 +28,13 @@ export default {
       isOpen:false
     }
   },
+  
+  watch:{
+    $route(to,from){
+      console.log(to.query.category,from.query.category)
+      this.$store.commit('setCategory',to.query.category)
+    }
+  },
   methods:{
     toggleMenu(){
 
@@ -38,12 +46,6 @@ export default {
       }else{
         this.isOpen = true  
       }
-    },
-    selectCategory(category){
-      if(category){
-        this.$router.push({ name: 'Home', query: { category: category } }, () => {})
-      }
-      this.isOpen = false
     }
   }
   

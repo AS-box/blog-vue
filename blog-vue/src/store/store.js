@@ -8,9 +8,26 @@ const store = new Vuex.Store({
     images: [],
     url: './js/data/',
     articles: [],
-    
+    categoryArticles:[],
+    category:'All'
+  },
+  getters: {
+    categoryArticles: (state) => {
+      return state.articles.filter(article => article.category === state.category);
+
+    }
   },
   mutations: {
+    setCategory(state, category) {
+      state.category = category;
+    },
+    setCategoryArticles() {
+      if (this.state.category !== 'All' && this.state.category) {
+        this.state.categoryArticles = this.getters.categoryArticles
+      } else {
+        this.state.categoryArticles = this.state.articles
+      }
+    },
     async getArticles() {
       this.state.articles.splice(0)
       await axios
