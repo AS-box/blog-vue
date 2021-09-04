@@ -13,7 +13,6 @@
 <script>
 export default {
   name:'ArticleList',
-  props:['category'],
   data(){
     return{
       articles:this.$store.state.articles,
@@ -21,26 +20,21 @@ export default {
       load:false
     }
   },
-  created(){
+  async created(){
     window.localStorage.clear()
     this.load = true
-    this.$store.commit('getArticles')
-    this.$store.commit('getImages')
-    this.getArticleCategory()
+    await this.$store.commit('getArticles')
+    await this.$store.commit('getImages')
     this.load = false
+    this.$store.watch((state)=>{
+      this.$store.commit('setCategoryArticles');
+      this.articles = state.categoryArticles
+    })
+
   },
   methods:{
     toArticle(data){
       this.$router.push({name:'Article',params:{data:data}})
-    },
-    getArticleCategory(){
-      if(this.category !== 'All'){
-        const articles = this.$store.state.articles.filter((article)=>article.category === this.category)    
-        this.articles = articles
-      }else{
-        this.$router.push({name:'Home',query:{category:this.category}},() => {
-        })
-      }
     }
   }
 }

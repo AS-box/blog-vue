@@ -1,5 +1,5 @@
 <template>
-  <ArticleList :category='category' :key="category"></ArticleList>
+  <ArticleList></ArticleList>
 </template>
 
 <script>
@@ -14,16 +14,6 @@ export default {
     ArticleList
   },
   props:{
-  },
-  data(){
-    return{
-      category:'All'
-    }
-  },
-  watch:{
-  '$route': function (to) {
-      this.category = to.query.category
-    }
   },
   methods:{
     toArticle(data){
