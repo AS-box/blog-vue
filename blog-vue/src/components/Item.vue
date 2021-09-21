@@ -2,8 +2,8 @@
 <div id="item">
     <div id="create" v-show="!isConfirm">
       <div class="create-kv">
-        <h2>画像アップロード</h2>
-        <upload-image></upload-image>
+        <!-- <h2>画像アップロード</h2>
+        <upload-image></upload-image> -->
         <h2>キービジュアル</h2>
         <choose-image @kv="setkv" category="kv" :name="article.kvName"></choose-image>
         <button @click='deleteKv'>キービジュアルを破棄</button>
@@ -88,14 +88,14 @@
 </template>
 <script>
 'use strict';
-import UploadImage from '../components/UploadImage'
+// import UploadImage from '../components/UploadImage'
 import ChooseImage from '../components/ChooseImage'
 import marked from 'marked'
 
 export default {
   name:'Edit',
   components:{
-    UploadImage,
+    // UploadImage,
     ChooseImage,
   },
   props:['dataId'],

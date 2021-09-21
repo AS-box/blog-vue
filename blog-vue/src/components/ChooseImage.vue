@@ -60,7 +60,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: fixed;
   background: rgba(0,0,0,0.5);
 }
 ul{
